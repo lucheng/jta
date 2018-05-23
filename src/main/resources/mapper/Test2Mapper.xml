@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+<mapper namespace="com.cheng.dynamic.repository.secondary.Test2Dao">
+	<resultMap id="Test2" type="com.cheng.dynamic.entity.Test2">
+		<id property="id" column="id" jdbcType="NUMERIC"/>
+		<result property="name" column="name" jdbcType="VARCHAR"/>
+	</resultMap>
+
+	<sql id="columns">
+		id,name 
+	</sql>
+	
+	<sql id="dynamicWhere">
+		<where>
+			<if test="@Ognl@isNotEmpty(id)"> AND id  =#{id} </if>
+			<if test="@Ognl@isNotEmpty(name)"> AND name  LIKE #{name}  </if>
+		</where>
+	</sql>
+		    
+	<select id="getById" parameterType="java.lang.Long" resultMap="Test2">
+		SELECT <include refid="columns"/>
+		FROM a_test2
+		WHERE
+		id=#{id}
+	</select>
+	
+	<insert id="add" parameterType="com.cheng.dynamic.entity.Test2" useGeneratedKeys="true" keyProperty="id">
+		INSERT INTO a_test2
+		(name)
+		VALUES
+		(#{name,jdbcType=VARCHAR})
+	</insert>
+	
+</mapper>

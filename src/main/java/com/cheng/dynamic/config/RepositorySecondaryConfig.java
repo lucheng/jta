@@ -35,10 +35,4 @@ public class RepositorySecondaryConfig {
     public SqlSessionTemplate sqlSessionTemplateSecondary(@Qualifier("sqlSessionFactorySecondary") SqlSessionFactory sqlSessionFactory) throws Exception {
         return new SqlSessionTemplate(sqlSessionFactory);
     }
-    
-    /*@Bean(name = "transactionManagerSecondary")
-    public DataSourceTransactionManager transactionManagerSecondary() {
-        return new DataSourceTransactionManager(dataSource());
-    }*/
-
 }
